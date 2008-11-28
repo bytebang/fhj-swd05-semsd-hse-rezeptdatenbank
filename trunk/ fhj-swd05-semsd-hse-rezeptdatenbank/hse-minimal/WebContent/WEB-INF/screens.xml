@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE screens SYSTEM "screens.dtd">
+<screens>
+	<initial-screen bean="mainScreen" />
+	<main-screen bean="mainScreen" />
+
+	<category message="category.widgets">
+		<accessible value="true" />
+		<screen message="screen.widgets" bean="widgetsScreen">
+			<accessible value="true" />
+		</screen>
+	</category>
+</screens>
+
