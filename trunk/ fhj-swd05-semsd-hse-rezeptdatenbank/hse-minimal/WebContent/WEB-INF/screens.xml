@@ -10,5 +10,16 @@
 			<accessible value="true" />
 		</screen>
 	</category>
+	
+	<!-- ################################################################## -->
+	<!-- ################ Rezeptdatenbank ab hier ######################### -->
+	<!-- ################################################################## -->
+	<category message="category.rezeptdb">
+		<accessible value="true" />
+		<screen message="screen.zutat" bean="zutatScreen">
+			<accessible value="true" />
+		</screen>
+	</category>
+	
 </screens>
 
