@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"    
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="fhj.swd05.hutteg.rezeptdb.zutat.Zutat" table="Zutaten">
+    <id column="zutatId" name="id" type="int" unsaved-value="-1">
+      <generator class="native"/>
+    </id>
+    <property column="name" length="255" name="name" not-null="true" type="string"/>
+    <property column="einheit" length="32" name="einheit" not-null="true" type="string"/>
+    <property column="energiemenge" name="energiemenge" not-null="false" type="integer"/>
+  </class>
+</hibernate-mapping>

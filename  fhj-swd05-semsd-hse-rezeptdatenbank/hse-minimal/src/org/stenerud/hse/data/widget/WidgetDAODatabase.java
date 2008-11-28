@@ -5,7 +5,7 @@ import java.util.List;
 import org.stenerud.hse.base.data.CriteriaBuffer;
 import org.stenerud.hse.base.data.ExtendedHibernateDaoSupport;
 
-public class WidgetDAODatabase extends org.stenerud.hse.base.data.ExtendedHibernateDaoSupport implements WidgetDAO
+public class WidgetDAODatabase extends ExtendedHibernateDaoSupport implements WidgetDAO
 {
 	// ========== CONSTANTS ==========
 	private static final String STANDARD_FROM = "FROM Widget widget";

@@ -1,5 +1,4 @@
-package org.stenerud.hse.data.widget;
-
+package fhj.swd05.hutteg.rezeptdb.zutat;
 
 import nextapp.echo2.app.Label;
 
@@ -9,7 +8,7 @@ import nextapp.echo2.app.Label;
  * 
  * @author You
  */
-public class WidgetScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScreen
+public class ZutatScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScreen
 {
 	private static final long serialVersionUID = 1L;
 
@@ -21,7 +20,7 @@ public class WidgetScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 
 	protected void initComponents()
 	{
-		add(new Label("Here there be widgets!"));
+		add(new Label("Hier kommt die Zutat hin"));
 
 	}
 

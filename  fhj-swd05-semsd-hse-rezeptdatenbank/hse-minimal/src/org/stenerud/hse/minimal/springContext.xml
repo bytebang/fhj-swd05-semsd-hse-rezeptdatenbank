@@ -59,13 +59,14 @@
 				<prop key="hibernate.dialect">${minimal.hibernate.dialect}</prop>
 				<prop key="hibernate.query.substitutions">${minimal.database.substitutions}</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
 		<property name="mappingResources">
 			<list>
 				<!-- Insert mappings here -->
 				<value>org/stenerud/hse/data/widget/Widget.hbm.xml</value>
+				<value>fhj/swd05/hutteg/rezeptdb/zutat/Zutat.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -97,7 +98,7 @@
 		</property>
 	</bean>
 
-
+	<!-- Widget Stuff -->
 	<bean id="WidgetDAO" class="org.stenerud.hse.data.widget.WidgetDAODatabase">
 		<property name="sessionFactory">
 				<ref local="minimalSessionFactory" />
@@ -110,7 +111,26 @@
 			<ref bean="messages" />
 		</property>
 	</bean>
-
+	
+	<!-- ################################################################## -->
+	<!-- ################ Rezeptdatenbank ab hier ######################### -->
+	<!-- ################################################################## -->
+	
+	<!-- ======================== Zutat =================================== -->
+	<bean id="ZutatDAO" class="fhj.swd05.hutteg.rezeptdb.zutat.ZutatDAODatabase">
+		<property name="sessionFactory">
+				<ref local="minimalSessionFactory" />
+		</property>
+	</bean>
+	<!-- Widgets Screen -->
+	<bean id="zutatScreen" class="fhj.swd05.hutteg.rezeptdb.zutat.ZutatScreen"
+		singleton="false">
+		<property name="messages">
+			<ref bean="messages" />
+		</property>
+	</bean>	
+	
+	
 </beans>
 
 
