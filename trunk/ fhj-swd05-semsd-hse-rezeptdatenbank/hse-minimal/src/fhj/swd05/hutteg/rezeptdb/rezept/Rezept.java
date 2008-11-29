@@ -1,8 +1,10 @@
 package fhj.swd05.hutteg.rezeptdb.rezept;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
-import fhj.swd05.hutteg.rezeptdb.mengenangabe.Mengenangabe;
+import fhj.swd05.hutteg.rezeptdb.zutat.Zutat;
 
 public class Rezept {
 	private int id;
@@ -10,7 +12,41 @@ public class Rezept {
 	private int zeit;
 	private int schwierigkeit;
 	private String zubereitung;
-	private List<Mengenangabe> bestandteile;
+	private Map <Zutat,Integer> zutaten = new HashMap<Zutat,Integer>();
+	
+	/**
+	 * Fuegt dem Rezept eine neue Zutat hinzu
+	 * @param neueZutat
+	 */
+	public void addZutat(Zutat neueZutat, int menge)
+	{
+		this.zutaten.put(neueZutat, menge);
+	}
+	
+	/**
+	 * Entfernt eine Zutat aus dem Rezept
+	 * @param neueZutat
+	 */
+	public void removeZutat(Zutat zuEntfernendeZutat)
+	{
+		this.zutaten.remove(zuEntfernendeZutat);
+	}
+	/**
+	 * Ermittelt die Gesamtenergie des Rezepts. (Summe ueber alle Zutaten)
+	 * @return
+	 */
+	public float getEnergie()
+	{
+		float gesamtenergie = 0;
+		for(Entry<Zutat,Integer> e: zutaten.entrySet())
+		{
+			Zutat z = e.getKey();
+			int menge = e.getValue();
+			gesamtenergie += z.getEnergieForAnzEinheiten(menge);	
+		}
+		return gesamtenergie;
+	}
+	//========== GETTERS AND SETTERS ================
 	public int getId() {
 		return id;
 	}
@@ -41,10 +77,10 @@ public class Rezept {
 	public void setZubereitung(String zubereitung) {
 		this.zubereitung = zubereitung;
 	}
-	public List<Mengenangabe> getBestandteile() {
-		return bestandteile;
+	public Map<Zutat,Integer> getZutaten() {
+		return zutaten;
 	}
-	public void setBestandteile(List<Mengenangabe> bestandteile) {
-		this.bestandteile = bestandteile;
+	public void setZutaten(Map<Zutat,Integer> zutaten) {
+		this.zutaten = zutaten;
 	}
 }
