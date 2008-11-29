@@ -31,6 +31,7 @@ public class WidgetDAODatabase extends ExtendedHibernateDaoSupport implements Wi
 		return (Widget)getFirst(criteria.getQuery());
 	}
 
+	@SuppressWarnings("unchecked")
 	public List getWidgets()
 	{
 		CriteriaBuffer criteria = new CriteriaBuffer(STANDARD_FROM,

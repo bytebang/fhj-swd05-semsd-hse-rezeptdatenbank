@@ -14,6 +14,7 @@ public interface WidgetDAO
 	 * 
 	 * @return a list of all widgets.
 	 */
+	@SuppressWarnings("unchecked")
 	public List getWidgets();
 
 	/**

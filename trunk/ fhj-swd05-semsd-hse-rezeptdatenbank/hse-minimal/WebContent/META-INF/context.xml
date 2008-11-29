@@ -1,3 +1,4 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <Context path="/hse-minimal" docBase="hse">
    <!-- Turn off session saving -->
    <Manager pathname="" />
