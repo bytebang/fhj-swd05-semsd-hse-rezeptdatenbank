@@ -15,7 +15,7 @@ public class ZutatScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScree
 	public String getTitle()
 	{
 		// Remember to set screen.widgets in Messages.properties!
-		return messages.get("screen.widgets");
+		return messages.get("screen.zutat");
 	}
 
 	protected void initComponents()

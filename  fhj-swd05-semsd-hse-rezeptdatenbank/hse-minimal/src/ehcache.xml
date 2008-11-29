@@ -1,4 +1,5 @@
 <!-- Failsafe ehcahce configuration taken from ehcache-1.1.jar!/ehcache-failsafe.xml -->
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <ehcache>
 
     <!-- Sets the path to the directory where cache .data files are created.

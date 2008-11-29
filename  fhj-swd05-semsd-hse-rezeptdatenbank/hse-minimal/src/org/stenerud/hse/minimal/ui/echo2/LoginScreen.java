@@ -154,6 +154,7 @@ public class LoginScreen extends Echo2UserInterface
 	 * @param levelIn the level number to append to the style name.
 	 * @param maxLevels the maximum level to allow.
 	 */
+	@SuppressWarnings("unchecked")
 	private int buildMenu(Menu menu, List screens, String baseStyleName, int levelIn, int maxLevels)
 	{
 		int level = levelIn > maxLevels ? maxLevels : levelIn;
@@ -195,6 +196,7 @@ public class LoginScreen extends Echo2UserInterface
 	 * This uses the screen manager to automatically build the list of screens
 	 * into a series of menus and submenus.
 	 */
+	@SuppressWarnings("unchecked")
 	private void buildMainMenu()
 	{
 		if ( null != mainMenu )
