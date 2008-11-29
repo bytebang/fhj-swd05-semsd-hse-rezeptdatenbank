@@ -5,6 +5,16 @@ public class Zutat {
 	private String name;
 	private String einheit;
 	private int energiemenge;
+	
+	/**
+	 * Ermittelt die Energiemenge fuer eine gegebene menge
+	 * @param einheiten
+	 * @return
+	 */
+	public float getEnergieForAnzEinheiten(float einheiten) {
+		return einheiten * this.energiemenge;
+	}
+	//========== GETTERS AND SETTERS ================
 	public int getId() {
 		return id;
 	}
@@ -29,4 +39,5 @@ public class Zutat {
 	public void setEnergiemenge(int energiemenge) {
 		this.energiemenge = energiemenge;
 	}
+
 }

@@ -67,6 +67,7 @@
 				<!-- Insert mappings here -->
 				<value>org/stenerud/hse/data/widget/Widget.hbm.xml</value>
 				<value>fhj/swd05/hutteg/rezeptdb/zutat/Zutat.hbm.xml</value>
+				<value>fhj/swd05/hutteg/rezeptdb/rezept/Rezept.hbm.xml</value>
 			</list>
 		</property>
 	</bean>

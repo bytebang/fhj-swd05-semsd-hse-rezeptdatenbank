@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"    
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="fhj.swd05.hutteg.rezeptdb.rezept.Rezept" table="Rezepte">
+    <id column="rezeptId" name="id" type="int" unsaved-value="-1">
+      <generator class="native"/>
+    </id>
+    <property column="name" length="255" name="name" not-null="true" type="string"/>
+    <property column="zeit" name="zeit" not-null="true" type="integer"/>
+    <property column="schwierigkeit" name="schwierigkeit" not-null="false" type="integer"/>
+    <property column="zubereitung" name="zubereitung" length="4096" not-null="true" type="integer"/>
+	<map name="zutaten" table="rezept_zutaten">
+       <key column="id"/>
+       <index-many-to-many column="zutatId" class="fhj.swd05.hutteg.rezeptdb.zutat.Zutat"/>
+       <element column="menge" type="integer"/>
+    </map>
+  </class>
+</hibernate-mapping>
