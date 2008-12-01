@@ -19,6 +19,10 @@
 		<screen message="screen.zutat" bean="zutatScreen">
 			<accessible value="true" />
 		</screen>
+
+		<screen message="screen.rezept" bean="rezeptScreen">
+			<accessible value="true" />
+		</screen>
 	</category>
 	
 </screens>
