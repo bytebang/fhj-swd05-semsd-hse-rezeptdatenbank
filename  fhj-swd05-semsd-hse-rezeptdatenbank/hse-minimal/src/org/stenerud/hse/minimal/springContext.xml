@@ -123,7 +123,7 @@
 				<ref local="minimalSessionFactory" />
 		</property>
 	</bean>
-	<!-- Widgets Screen -->
+	<!-- Zutaten Screen -->
 	<bean id="zutatScreen" class="fhj.swd05.hutteg.rezeptdb.zutat.ZutatScreen"
 		singleton="false">
 		<property name="messages">
@@ -131,7 +131,26 @@
 		</property>
 	</bean>	
 	
-	
+	<!-- ======================== Rezept =================================== -->	
+	<bean id="RezeptDAO" class="fhj.swd05.hutteg.rezeptdb.rezept.RezeptDAODatabase">
+		<property name="sessionFactory">
+				<ref local="minimalSessionFactory" />
+		</property>
+	</bean>
+	<!-- Rezepte Screen -->
+	<bean id="rezeptScreen" class="fhj.swd05.hutteg.rezeptdb.rezept.RezeptScreen"
+		singleton="false">
+		<property name="messages">
+			<ref bean="messages" />
+		</property>
+		<property name="rezeptDAO">
+			<ref bean="RezeptDAO" />
+		</property>
+		<property name="zutatDAO">
+			<ref bean="ZutatDAO" />
+		</property>
+
+	</bean>		
 </beans>
 
 
