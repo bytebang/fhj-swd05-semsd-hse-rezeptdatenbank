@@ -72,12 +72,31 @@
 		</property>
 	</bean>
 
-	<!--
+
+	<!-- Transaction Manager -->
+	<!-- Adds automatic transaction support through Hibernate -->
+    <bean id="transactionManager" class="org.stenerud.hse.base.data.DisconnectHandlingTransactionManager">
+    		<property name="sessionFactory"><ref local="minimalSessionFactory" /></property>
+    </bean>
+
+	<!-- Hibernate DAO template that uses Spring's AOP to wrap all DAO methods in a transaction. -->
+    <bean id="txProxyTemplate" abstract="true"
+        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+      <property name="transactionManager"><ref bean="transactionManager"/></property>
+      <property name="transactionAttributes">
+        <props>
+          <prop key="create*">PROPAGATION_REQUIRED</prop>
+          <prop key="update*">PROPAGATION_REQUIRED</prop>
+          <prop key="delete*">PROPAGATION_REQUIRED</prop>
+          <prop key="getOrCreate*">PROPAGATION_REQUIRED</prop>
+          <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+        </props>
+      </property>
+    </bean>
+
 		<bean id="minimalDisconnectHandler"
 		class="org.stenerud.hse.base.data.DerbyDisconnectHandler"/>
-	-->
-	<bean id="minimalDisconnectHandler" class="org.stenerud.hse.base.data.PostgresqlDisconnectHandler" />
-
+	
 	<bean id="minimalMessageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename">
@@ -118,11 +137,16 @@
 	<!-- ################################################################## -->
 	
 	<!-- ======================== Zutat =================================== -->
-	<bean id="ZutatDAO" class="fhj.swd05.hutteg.rezeptdb.zutat.ZutatDAODatabase">
-		<property name="sessionFactory">
-				<ref local="minimalSessionFactory" />
+	
+	<bean id="ZutatDAO" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="fhj.swd05.hutteg.rezeptdb.zutat.ZutatDAODatabase">
+				<property name="sessionFactory"><ref local="minimalSessionFactory" /></property>
+			</bean>
 		</property>
 	</bean>
+	
+	
 	<!-- Zutaten Screen -->
 	<bean id="zutatScreen" class="fhj.swd05.hutteg.rezeptdb.zutat.ZutatScreen"
 		singleton="false">
@@ -132,11 +156,21 @@
 	</bean>	
 	
 	<!-- ======================== Rezept =================================== -->	
-	<bean id="RezeptDAO" class="fhj.swd05.hutteg.rezeptdb.rezept.RezeptDAODatabase">
-		<property name="sessionFactory">
-				<ref local="minimalSessionFactory" />
+<!--	<bean id="RezeptDAO" class="fhj.swd05.hutteg.rezeptdb.rezept.RezeptDAODatabase">-->
+<!--		<property name="sessionFactory">-->
+<!--				<ref local="minimalSessionFactory" />-->
+<!--		</property>-->
+<!--	</bean>-->
+	
+	<bean id="RezeptDAO" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="fhj.swd05.hutteg.rezeptdb.rezept.RezeptDAODatabase">
+				<property name="sessionFactory"><ref local="minimalSessionFactory" /></property>
+			</bean>
 		</property>
+		
 	</bean>
+	
 	<!-- Rezepte Screen -->
 	<bean id="rezeptScreen" class="fhj.swd05.hutteg.rezeptdb.rezept.RezeptScreen"
 		singleton="false">

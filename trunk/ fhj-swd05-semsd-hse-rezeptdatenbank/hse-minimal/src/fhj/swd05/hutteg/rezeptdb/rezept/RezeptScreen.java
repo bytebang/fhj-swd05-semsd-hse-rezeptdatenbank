@@ -43,6 +43,15 @@ public class RezeptScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 	{
 		add(new Label("Rezepte kommen hier hin"));
 		
+		
+		Rezept r = new Rezept();		
+		r.setName("Fruestueck fuer Champignons");
+		r.setSchwierigkeit(1);
+		r.setZeit(1);
+		r.setZubereitung("Milch und Kornflakes in Schuessel geben");
+		
+		rezeptDAO.create(r);
+		/*
 		Zutat milch = new Zutat();
 		milch.setName("Milch");
 		milch.setEinheit("liter");
@@ -64,14 +73,7 @@ public class RezeptScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 		r.setZubereitung("Milch und Kornflakes in Schuessel geben");
 		
 		rezeptDAO.create(r);
-		
-		
-		List rezepte = rezeptDAO.getRezepte();
-		add(new Label("Anzahl gespeicherter Rezepte : " + String.valueOf(rezepte.size())));
-		
-		
-		
-
+*/
 	}
 
 	protected void resetComponents()
