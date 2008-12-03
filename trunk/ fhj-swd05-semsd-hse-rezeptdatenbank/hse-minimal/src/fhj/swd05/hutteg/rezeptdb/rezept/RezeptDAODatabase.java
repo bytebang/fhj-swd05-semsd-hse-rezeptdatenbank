@@ -10,7 +10,7 @@ public class RezeptDAODatabase extends ExtendedHibernateDaoSupport implements Re
 {
 	// ========== CONSTANTS ==========
 	private static final String STANDARD_FROM = "FROM Rezept rezept";
-	private static final String STANDARD_ORDER = "ORDER BY Rezept.name";
+	private static final String STANDARD_ORDER = "ORDER BY rezept.name";
 
 	// ========== IMPLEMENTATION ==========
 

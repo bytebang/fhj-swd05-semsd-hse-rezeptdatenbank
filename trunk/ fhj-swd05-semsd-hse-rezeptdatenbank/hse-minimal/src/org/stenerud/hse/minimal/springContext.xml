@@ -94,9 +94,8 @@
       </property>
     </bean>
 
-		<bean id="minimalDisconnectHandler"
-		class="org.stenerud.hse.base.data.DerbyDisconnectHandler"/>
-	
+	<bean id="minimalDisconnectHandler"	class="org.stenerud.hse.base.data.DerbyDisconnectHandler"/>
+		
 	<bean id="minimalMessageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename">
