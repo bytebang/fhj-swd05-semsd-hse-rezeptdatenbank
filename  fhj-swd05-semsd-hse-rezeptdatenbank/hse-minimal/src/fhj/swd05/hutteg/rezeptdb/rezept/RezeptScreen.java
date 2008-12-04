@@ -2,9 +2,12 @@ package fhj.swd05.hutteg.rezeptdb.rezept;
 
 import java.util.List;
 
+import echopointng.TabbedPane;
+import echopointng.tabbedpane.DefaultTabModel;
 import fhj.swd05.hutteg.rezeptdb.zutat.Zutat;
 import fhj.swd05.hutteg.rezeptdb.zutat.ZutatDAO;
 import nextapp.echo2.app.Label;
+import nextapp.echo2.app.Row;
 
 
 /**
@@ -17,6 +20,8 @@ public class RezeptScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 	private static final long serialVersionUID = 1L;
 	private RezeptDAO rezeptDAO = null;
 	private ZutatDAO zutatDAO = null;
+	
+	private TabbedPane rezeptpane = new TabbedPane();
 	public ZutatDAO getZutatDAO() {
 		return zutatDAO;
 	}
@@ -41,6 +46,20 @@ public class RezeptScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 
 	protected void initComponents()
 	{
+		DefaultTabModel defaultTabModel = new DefaultTabModel();
+		for(char c = 'A'; c <= 'Z'; c++)
+		{
+			List rezepte = rezeptDAO.getRezeptStartingWith(String.valueOf(c));
+			for(int i = 0; i < rezepte.size(); i++)
+			{
+				defaultTabModel.addTab(String.valueOf(c), new Label("Hier kommt der Content hin ?"));
+			}
+		}
+
+		this.rezeptpane.setModel(defaultTabModel);
+	    add(this.rezeptpane);
+
+/*		    
 		add(new Label("Rezepte kommen hier hin"));
 		
 		Zutat milch = new Zutat();
@@ -64,7 +83,7 @@ public class RezeptScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 		r.setZubereitung("Milch und Kornflakes in Schuessel geben");
 		
 		rezeptDAO.create(r);
-
+*/
 	}
 
 	protected void resetComponents()
