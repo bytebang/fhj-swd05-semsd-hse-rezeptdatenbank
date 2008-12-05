@@ -46,6 +46,16 @@ public class Rezept {
 		}
 		return gesamtenergie;
 	}
+	/**
+	 * Liefert neben dem Rezeptnamen ein Kurze Zusammenfassung
+	 * @return
+	 */
+	public String getBriefDescription()
+	{
+		StringBuffer sb = new StringBuffer(this.zubereitung);
+		sb.subSequence(0, 20);
+		return this.name + " - " + sb.subSequence(0, 20) + " ...";
+	}
 	//========== GETTERS AND SETTERS ================
 	public int getId() {
 		return id;
