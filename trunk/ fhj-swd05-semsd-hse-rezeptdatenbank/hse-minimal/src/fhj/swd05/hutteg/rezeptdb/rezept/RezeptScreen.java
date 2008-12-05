@@ -1,11 +1,14 @@
 package fhj.swd05.hutteg.rezeptdb.rezept;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import echopointng.TabbedPane;
 import echopointng.tabbedpane.DefaultTabModel;
 import fhj.swd05.hutteg.rezeptdb.zutat.Zutat;
 import fhj.swd05.hutteg.rezeptdb.zutat.ZutatDAO;
+import nextapp.echo2.app.ContentPane;
 import nextapp.echo2.app.Label;
 import nextapp.echo2.app.Row;
 
@@ -47,12 +50,24 @@ public class RezeptScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 	protected void initComponents()
 	{
 		DefaultTabModel defaultTabModel = new DefaultTabModel();
-		for(char c = 'A'; c <= 'Z'; c++)
+		List<Rezept> rezepte = rezeptDAO.getRezepte();
+		
+		String firstLetter = "::::::"; // Ein Rezept das es bestimmt nicht gibt
+		RezeptChooserGUI rgui = null;
+		for(Rezept r : rezepte)
 		{
-			List rezepte = rezeptDAO.getRezeptStartingWith(String.valueOf(c));
-			for(int i = 0; i < rezepte.size(); i++)
+			if(r.getName().startsWith(firstLetter))
 			{
-				defaultTabModel.addTab(String.valueOf(c), new Label("Hier kommt der Content hin ?"));
+				// es sollte schon ein Tab geben, das rezept gehoert dahin
+				rgui.addRezept(r);
+			}
+			else
+			{
+				// scheinbar gibt es noch kein Tab, also machen wir ein neues
+				firstLetter = String.valueOf(r.getName().charAt(0));
+				rgui = new RezeptChooserGUI();
+				rgui.addRezept(r);
+				defaultTabModel.addTab(firstLetter, rgui);
 			}
 		}
 

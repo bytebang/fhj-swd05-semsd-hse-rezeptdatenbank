@@ -39,7 +39,7 @@ public class LoginScreen extends Echo2UserInterface
 
 	private static final int TITLE_HEIGHT = 46;
 	private static final int NAVMENU_HEIGHT = 24;
-	private static final int SPACER_HEIGHT = 8;
+	private static final int SPACER_HEIGHT = 120;
 
 	// ========== INJECTED MEMBERS ==========
 	private Messages messages;
