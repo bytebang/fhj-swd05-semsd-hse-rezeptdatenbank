@@ -182,8 +182,8 @@
 		<property name="zutatDAO">
 			<ref bean="ZutatDAO" />
 		</property>
-
 	</bean>		
+	
 </beans>
 
 
