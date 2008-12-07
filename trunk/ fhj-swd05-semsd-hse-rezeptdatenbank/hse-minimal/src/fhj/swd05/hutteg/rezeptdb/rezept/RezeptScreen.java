@@ -1,16 +1,13 @@
 package fhj.swd05.hutteg.rezeptdb.rezept;
 
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.regex.Matcher;
 
 import echopointng.TabbedPane;
 import echopointng.tabbedpane.DefaultTabModel;
-import fhj.swd05.hutteg.rezeptdb.zutat.Zutat;
+
 import fhj.swd05.hutteg.rezeptdb.zutat.ZutatDAO;
-import nextapp.echo2.app.ContentPane;
-import nextapp.echo2.app.Label;
-import nextapp.echo2.app.Row;
+
 
 
 /**
@@ -25,6 +22,8 @@ public class RezeptScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 	private ZutatDAO zutatDAO = null;
 	
 	private TabbedPane rezeptpane = new TabbedPane();
+	DefaultTabModel defaultTabModel = new DefaultTabModel();
+	
 	public ZutatDAO getZutatDAO() {
 		return zutatDAO;
 	}
@@ -47,9 +46,10 @@ public class RezeptScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 		return messages.get("screen.rezept");
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void initComponents()
 	{
-		DefaultTabModel defaultTabModel = new DefaultTabModel();
+
 		List<Rezept> rezepte = rezeptDAO.getRezepte();
 		
 		String firstLetter = "::::::"; // Ein Rezept das es bestimmt nicht gibt
@@ -70,9 +70,14 @@ public class RezeptScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 				defaultTabModel.addTab(firstLetter, rgui);
 			}
 		}
-
 		this.rezeptpane.setModel(defaultTabModel);
-	    add(this.rezeptpane);
+	    
+		// Wenn mindestens ein Tab hinzugefuegt wurde wird das erste Tab angezeigt
+		if(rgui != null)
+		{
+			this.rezeptpane.setSelectedIndex(0);
+		}
+		add(this.rezeptpane);
 
 /*		    
 		add(new Label("Rezepte kommen hier hin"));

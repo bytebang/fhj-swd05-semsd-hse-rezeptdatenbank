@@ -2,10 +2,14 @@ package fhj.swd05.hutteg.rezeptdb.rezept;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import nextapp.echo2.app.*;
+import nextapp.echo2.app.event.ActionEvent;
+import nextapp.echo2.app.event.ActionListener;
 
-public class RezeptChooserGUI extends ContentPane{
+public class RezeptChooserGUI extends ContentPane implements ActionListener{
 	/**
 	 * Hierbei handelt es sich um ein Containerobjekt fuer Rezeptobjekte
 	 */
@@ -52,7 +56,34 @@ public class RezeptChooserGUI extends ContentPane{
 	private Row createRezeptRowForRezeptObject(Rezept rezept)
 	{
 		Row r = new Row();
-		r.add(new Button(rezept.getBriefDescription()));
+		Button b = new Button(rezept.getBriefDescription());
+		b.addActionListener(this);
+		r.add(b);
 		return r;
+	}
+	/**
+	 * Wird fuer jeden Button aufgerufen
+	 */
+	@Override
+	public void actionPerformed(ActionEvent aevent) {
+
+		// Wer hat den Event ausgeloest ?
+		Button b = (Button) aevent.getSource();
+
+		// Ueber die Row findet man des RezeptObjekt
+		Row r = (Row) b.getParent();
+
+		// Rezept suchen, eventuell gibts da eine elegantere Loesung
+		Set<Entry<Rezept,Row>> elements = this.rezepte.entrySet();
+		for(Entry<Rezept,Row> e : elements)
+		{
+			if(e.getValue().equals(r))
+			{
+				// Das Rezept anzeigen
+				RezeptEditorWindow rew = new RezeptEditorWindow(e.getKey());
+				r.getParent().getParent().add(rew);
+				return;
+			}
+		}
 	}
 }
