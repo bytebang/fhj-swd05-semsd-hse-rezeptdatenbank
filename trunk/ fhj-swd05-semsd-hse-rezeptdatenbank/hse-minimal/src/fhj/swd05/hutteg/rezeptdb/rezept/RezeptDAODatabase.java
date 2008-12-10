@@ -30,7 +30,7 @@ public class RezeptDAODatabase extends ExtendedHibernateDaoSupport implements Re
 		CriteriaBuffer criteria = new CriteriaBuffer(STANDARD_FROM);
 		criteria.addCriteria("rezept.name =", name);
 
-		return (Rezept)getFirst(criteria.getQuery());
+		return (Rezept) getFirst(criteria.getQuery());
 	}
 
 	@SuppressWarnings("unchecked")

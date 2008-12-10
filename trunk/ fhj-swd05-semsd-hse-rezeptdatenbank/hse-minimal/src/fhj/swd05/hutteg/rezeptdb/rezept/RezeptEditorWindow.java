@@ -1,7 +1,10 @@
 package fhj.swd05.hutteg.rezeptdb.rezept;
 
-import nextapp.echo2.app.Alignment;
-import nextapp.echo2.app.Border;
+
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
+
 import nextapp.echo2.app.Button;
 import nextapp.echo2.app.Color;
 import nextapp.echo2.app.Column;
@@ -11,35 +14,27 @@ import nextapp.echo2.app.Extent;
 import nextapp.echo2.app.Grid;
 import nextapp.echo2.app.Insets;
 import nextapp.echo2.app.Label;
-import nextapp.echo2.app.RadioButton;
 import nextapp.echo2.app.Row;
-import nextapp.echo2.app.SelectField;
 import nextapp.echo2.app.SplitPane;
 import nextapp.echo2.app.TextArea;
-import nextapp.echo2.app.TextField;
 import nextapp.echo2.app.WindowPane;
-import nextapp.echo2.app.button.ButtonGroup;
 import nextapp.echo2.app.event.ActionEvent;
 import nextapp.echo2.app.event.ActionListener;
-import nextapp.echo2.app.layout.ColumnLayoutData;
-import nextapp.echo2.app.layout.GridLayoutData;
-import nextapp.echo2.app.layout.RowLayoutData;
 import nextapp.echo2.app.layout.SplitPaneLayoutData;
-import nextapp.echo2.app.list.DefaultListModel;
-import nextapp.echo2.app.list.ListModel;
 
-import org.springframework.beans.factory.ListableBeanFactory;
-import org.springframework.dao.support.DaoSupport;
-import org.springframework.ui.velocity.SpringResourceLoader;
-import org.stenerud.hse.base.tool.SpringHelper;
 import org.stenerud.hse.base.ui.echo2.Theme;
-import org.stenerud.hse.base.ui.echo2.screen.ScreenManager;
 
-import echopointng.ComboBox;
 import echopointng.Slider;
+import echopointng.TabbedPane;
+import echopointng.tabbedpane.DefaultTabModel;
+import fhj.swd05.hutteg.rezeptdb.zutat.Zutat;
 
 public class RezeptEditorWindow extends WindowPane implements ActionListener{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// Private Stuff
 	private Rezept rezept = null;
 	private RezeptDAO rezeptDAO = null;
@@ -51,8 +46,9 @@ public class RezeptEditorWindow extends WindowPane implements ActionListener{
 	 * ctor
 	 * @param rezept
 	 */
-	public RezeptEditorWindow(Rezept rezept) {
+	public RezeptEditorWindow(Rezept rezept, RezeptDAO rezeptDao) {
 		this.rezept = rezept;
+		this.rezeptDAO = rezeptDao;
 		this.initGui();
 	}
 
@@ -69,33 +65,89 @@ public class RezeptEditorWindow extends WindowPane implements ActionListener{
         // Titel
         setTitle(rezept.getName());
        
-        // Zubereitung
-        taZubereitung.setText(rezept.getZubereitung());
+        TabbedPane mainpane = new TabbedPane();
+        DefaultTabModel defaultTabModel = new DefaultTabModel();
+        
+        defaultTabModel.addTab("Info",getInfoPane());
+        defaultTabModel.addTab("Zubereitung",getZubereitungPane());
+        defaultTabModel.addTab("Zutaten",getZutatenPane());
+
+        refreshGUIValues();
+        mainpane.setModel(defaultTabModel);
+        this.add(mainpane);
+       
+
+}
+	/**
+	 * Erzeugt eine Contentpane mit der die Zutaten angezeigt / editiert werden koennen
+	 * @return
+	 */
+	private ContentPane getZutatenPane() {
+		ContentPane cp = new ContentPane();
+		
+		// Grid mit den aktuellen Zutaten erzeugen
+        Grid zutatenGrid = new Grid();
+        zutatenGrid.setOrientation(Grid.ORIENTATION_HORIZONTAL);
+        zutatenGrid.setSize(3); // Es gibt 3 Spalten
+        zutatenGrid.setInsets(new Insets(10));
+		
+        rezeptDAO.refresh(rezept); // Sonst funktioniert lazyLoading nicht !!
+        Set<Entry<Zutat,Integer>> elements = rezept.getZutaten().entrySet();
+		for(Entry<Zutat,Integer> e : elements)
+		{
+			Zutat z = e.getKey();
+			Integer m = e.getValue();
+			// Zeile erzeugen
+			Button deleteButton = new Button("X");
+			deleteButton.setBackground(new Color(255,230,153));
+			deleteButton.setActionCommand(String.valueOf(z.getId()));
+			deleteButton.addActionListener(this);
+			
+			// Als erstes kommt der Entfernen Knopf hin
+			zutatenGrid.add(deleteButton);
+			// Actionhandler fuer entfernen setzen
+			
+			// Danach ein Label mit dem Namen der Zutat
+			zutatenGrid.add(new Label(z.getName()));
+			
+			// Danach ein Label mit dem Namen der Zutat
+			zutatenGrid.add(new Label(String.valueOf(m)));			
+		}
+        
+		cp.add(zutatenGrid);
+		
+        refreshGUIValues();
+		// Jetzt koennen die Zutaten angezeigt werden.
+		// Jeder Zutateneintrag enthaelt eine Menge und eben die Zutat.
+		// Jede Zeile erhaelt einen update und einen loeschen Knopf
+		// Ganz unten wird eine ComboBox angezeigt, aus der weitere Zutaten hinzugefuegt werden koennen.
+		// Wenn man etwas i.d. cb schreibt, wird automatisch gefiltert
+		
+		return cp;
+	}
+
+	
+	/** 
+	 * Erzeugt die Pane auf der die Zubereitung beschrieben wird
+	 */
+	private ContentPane getZubereitungPane() {
+		ContentPane cp = new ContentPane();
+		
+		Column col = new Column();
+		col.add(taZubereitung);
+		taZubereitung.setText(rezept.getZubereitung());
         taZubereitung.setWidth(new Extent(98,Extent.PERCENT));
         taZubereitung.setHeight(new Extent(250,Extent.PX));
-        
-        // Keine Scrollbars
-        SplitPaneLayoutData layout = new SplitPaneLayoutData();
-		layout.setOverflow(SplitPaneLayoutData.OVERFLOW_HIDDEN);
-        
-        SplitPane sp = new SplitPane();
-        sp.setLayoutData(layout);
-        sp.setOrientation(SplitPane.ORIENTATION_VERTICAL);
-        sp.setSeparatorColor(Color.GREEN);
-        sp.setSeparatorPosition(new Extent(150,Extent.PX));
-        sp.add(getPropGrid());
-        
-        sp.add(taZubereitung);
-
-        
-        add(sp);
-       
-}
+        cp.add(col);
+        return cp;
+	}
 	/**
 	 * Liefert das Grind mit den Eigenschaften zurueck
 	 * @return
 	 */
-	private Grid getPropGrid() {
+	private ContentPane getInfoPane() {
+		ContentPane cp = new ContentPane();
+		
 		// Create a grid to contain buttons and add to toolbar pane.
         Grid propertiesGrid = new Grid();
         propertiesGrid.setOrientation(Grid.ORIENTATION_HORIZONTAL);
@@ -133,89 +185,44 @@ public class RezeptEditorWindow extends WindowPane implements ActionListener{
         slZeit.setValue(rezept.getZeit());
         slZeit.setWidth(new Extent(90,Extent.PERCENT));
         propertiesGrid.add(slZeit);
-		return propertiesGrid;
+        
+        cp.add(propertiesGrid);
+		return cp;
 	}
-
+	/**
+	 * Updatet die GUI mit den Werten aus dem Rezept
+	 */
+	private void refreshGUIValues()
+	{
+		rezeptDAO.refresh(rezept);
+		this.sgSchwierigkeit.setSchwierigkgeit(rezept.getSchwierigkeit());
+		this.slZeit.setValue(rezept.getZeit());
+		this.taZubereitung.setText(rezept.getZubereitung());
+	}
+	/**
+	 * Holt aus der GUI die aktuellen Werte und schreibt Sie ins Rezept Objekt
+	 */
+	private void updateRezeptValues()
+	{
+		rezept.setSchwierigkeit(this.sgSchwierigkeit.getSchwierigkgeit());
+		rezept.setZeit(this.slZeit.getValue());
+		rezept.setZubereitung(this.taZubereitung.getText());
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent actionevent) {
 		if(actionevent.getActionCommand().equalsIgnoreCase("save"))
 		{
+			this.updateRezeptValues();
 			rezeptDAO.update(rezept);
+			userClose();
 		}
 		else if(actionevent.getActionCommand().equalsIgnoreCase("delete"))
 		{
 			rezeptDAO.delete(rezept);
+			userClose();
 		}
-			
 	}
 	
-	// innere Klasse fuer Schwirigkeiten
-	class Schwierigkeitsgrad extends Row implements ActionListener 
-	{
-		public static final int SCHWIERIGKEIT_ANFAENGER = 0;
-		public static final int SCHWIERIGKEIT_MITTEL = 1;
-		public static final int SCHWIERIGKEIT_KOMPLIZIERT = 2;
-		
-		// Private stuff
-		private int schwierigkeit;
-		ButtonGroup rbg = new ButtonGroup();
-
-		Schwierigkeitsgrad()
-		{
-			
-			// RadioButtons erzeugen
-			RadioButton rbAnfaenger = new RadioButton();
-			rbAnfaenger.setActionCommand(String.valueOf(SCHWIERIGKEIT_ANFAENGER));
-			rbAnfaenger.setText("Anfaenger");
-			rbAnfaenger.addActionListener(this);
-			rbAnfaenger.setGroup(rbg);
-			
-			RadioButton rbMittel = new RadioButton();
-			rbMittel.setActionCommand(String.valueOf(SCHWIERIGKEIT_MITTEL));
-			rbMittel.setText("Mittel");
-			rbMittel.addActionListener(this);			
-			rbMittel.setGroup(rbg);
-
-			RadioButton rbKompliziert = new RadioButton();
-			rbKompliziert.setActionCommand(String.valueOf(SCHWIERIGKEIT_KOMPLIZIERT));
-			rbKompliziert.setText("Kompliziert");
-			rbKompliziert.addActionListener(this);	
-			rbKompliziert.setGroup(rbg);
-
-			add(rbAnfaenger);
-			add(rbMittel);
-			add(rbKompliziert);
-		}
-		/**
-		 * Liefert die ausgewaehlte Schwierigkeit zurueck
-		 * @return
-		 */
-		public int getSchwierigkgeit()
-		{
-			return schwierigkeit;
-		}
-		public void setSchwierigkgeit(int newSchwierigkeit)
-		{
-			schwierigkeit = newSchwierigkeit;
-			
-			// und noch in der GUI nachziehen
-			for(int i = 0; i < this.getComponentCount(); i++)
-			{
-				RadioButton rb = (RadioButton) this.getComponents()[i];
-				if(rb.getActionCommand().equalsIgnoreCase(String.valueOf(newSchwierigkeit)))
-				{
-					rb.setSelected(true);
-					break;
-				}
-			}
-		}
-		/**
-		 * Wird von den Radiobuttons aufgerufen
-		 * @param actionevent
-		 */
-		@Override
-		public void actionPerformed(ActionEvent actionevent) {
-			schwierigkeit = Integer.valueOf(actionevent.getActionCommand()).intValue();	
-		}
-	}
+	
 }
