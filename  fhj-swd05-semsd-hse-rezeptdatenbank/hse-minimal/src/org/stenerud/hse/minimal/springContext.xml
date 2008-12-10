@@ -123,11 +123,17 @@
 				<ref local="minimalSessionFactory" />
 		</property>
 	</bean>
-	<!-- Widgets Screen -->
+	<!-- Widgets Screen ... Wird derzeit zum Init missbraucht-->
 	<bean id="widgetsScreen" class="org.stenerud.hse.data.widget.WidgetScreen"
 		singleton="false">
 		<property name="messages">
 			<ref bean="messages" />
+		</property>
+		<property name="rdao">
+			<ref bean="RezeptDAO" />
+		</property>
+		<property name="zdao">
+			<ref bean="ZutatDAO" />
 		</property>
 	</bean>
 	

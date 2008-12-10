@@ -16,12 +16,14 @@ public class RezeptChooserGUI extends ContentPane implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private Map<Rezept,Row> rezepte = new HashMap<Rezept,Row>();
 	private Column col = new Column();
+	private RezeptDAO rezeptDao;
 	
 	/**
 	 * ctor
 	 */
-	RezeptChooserGUI()
+	RezeptChooserGUI(RezeptDAO rezeptDao)
 	{
+		this.rezeptDao = rezeptDao;
 		col.setInsets(new Insets(10));
 		// Ein Spalte, in der dann alle Rezepte drinnen sind
 		add(col);
@@ -61,6 +63,7 @@ public class RezeptChooserGUI extends ContentPane implements ActionListener{
 		r.add(b);
 		return r;
 	}
+
 	/**
 	 * Wird fuer jeden Button aufgerufen
 	 */
@@ -80,7 +83,7 @@ public class RezeptChooserGUI extends ContentPane implements ActionListener{
 			if(e.getValue().equals(r))
 			{
 				// Das Rezept anzeigen
-				RezeptEditorWindow rew = new RezeptEditorWindow(e.getKey());
+				RezeptEditorWindow rew = new RezeptEditorWindow(e.getKey(), this.rezeptDao);
 				r.getParent().getParent().add(rew);
 				return;
 			}

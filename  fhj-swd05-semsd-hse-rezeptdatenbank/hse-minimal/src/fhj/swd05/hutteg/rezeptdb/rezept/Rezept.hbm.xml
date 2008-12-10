@@ -11,7 +11,7 @@
 	<property column="zeit" name="zeit" not-null="true" type="integer"/>
     <property column="schwierigkeit" name="schwierigkeit" not-null="false" type="integer"/>
     <property column="zubereitung" name="zubereitung" length="4096" not-null="true" type="string"/>
-	<map name="zutaten" table="rezept_zutaten">
+	<map name="zutaten" table="rezept_zutaten" lazy="true">
        <key column="id"/>
        <index-many-to-many column="zutatId" class="fhj.swd05.hutteg.rezeptdb.zutat.Zutat"/>
        <element column="menge" type="integer"/>
