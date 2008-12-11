@@ -65,7 +65,7 @@ public class RezeptScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 			{
 				// scheinbar gibt es noch kein Tab, also machen wir ein neues
 				firstLetter = String.valueOf(r.getName().charAt(0));
-				rgui = new RezeptChooserGUI(this.rezeptDAO);
+				rgui = new RezeptChooserGUI(this.rezeptDAO, this.zutatDAO);
 				rgui.addRezept(r);
 				defaultTabModel.addTab(firstLetter, rgui);
 			}
