@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import fhj.swd05.hutteg.rezeptdb.zutat.ZutatDAO;
+
 import nextapp.echo2.app.*;
 import nextapp.echo2.app.event.ActionEvent;
 import nextapp.echo2.app.event.ActionListener;
@@ -17,13 +19,14 @@ public class RezeptChooserGUI extends ContentPane implements ActionListener{
 	private Map<Rezept,Row> rezepte = new HashMap<Rezept,Row>();
 	private Column col = new Column();
 	private RezeptDAO rezeptDao;
-	
+	private ZutatDAO zutatDao;
 	/**
 	 * ctor
 	 */
-	RezeptChooserGUI(RezeptDAO rezeptDao)
+	RezeptChooserGUI(RezeptDAO rezeptDao, ZutatDAO zutatDao)
 	{
 		this.rezeptDao = rezeptDao;
+		this.zutatDao = zutatDao;
 		col.setInsets(new Insets(10));
 		// Ein Spalte, in der dann alle Rezepte drinnen sind
 		add(col);
@@ -83,7 +86,7 @@ public class RezeptChooserGUI extends ContentPane implements ActionListener{
 			if(e.getValue().equals(r))
 			{
 				// Das Rezept anzeigen
-				RezeptEditorWindow rew = new RezeptEditorWindow(e.getKey(), this.rezeptDao);
+				RezeptEditorWindow rew = new RezeptEditorWindow(e.getKey(), this.rezeptDao, this.zutatDao);
 				r.getParent().getParent().add(rew);
 				return;
 			}

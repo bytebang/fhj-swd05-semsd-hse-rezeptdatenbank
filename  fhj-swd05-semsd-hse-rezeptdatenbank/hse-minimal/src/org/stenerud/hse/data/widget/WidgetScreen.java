@@ -5,10 +5,8 @@ import java.util.List;
 
 import fhj.swd05.hutteg.rezeptdb.rezept.Rezept;
 import fhj.swd05.hutteg.rezeptdb.rezept.RezeptDAO;
-import fhj.swd05.hutteg.rezeptdb.rezept.RezeptDAODatabase;
 import fhj.swd05.hutteg.rezeptdb.zutat.Zutat;
 import fhj.swd05.hutteg.rezeptdb.zutat.ZutatDAO;
-import fhj.swd05.hutteg.rezeptdb.zutat.ZutatDAODatabase;
 import nextapp.echo2.app.Label;
 
 
@@ -46,6 +44,7 @@ public class WidgetScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 		return messages.get("screen.widgets");
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void initComponents()
 	{
 		
