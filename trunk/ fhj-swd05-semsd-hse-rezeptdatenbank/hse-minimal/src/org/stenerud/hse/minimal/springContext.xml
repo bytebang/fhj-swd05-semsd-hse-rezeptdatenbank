@@ -158,6 +158,9 @@
 		<property name="messages">
 			<ref bean="messages" />
 		</property>
+		<property name="zutatDAO">
+			<ref bean="ZutatDAO" />
+		</property>
 	</bean>	
 	
 	<!-- ======================== Rezept =================================== -->	

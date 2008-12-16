@@ -78,32 +78,6 @@ public class RezeptScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 			this.rezeptpane.setSelectedIndex(0);
 		}
 		add(this.rezeptpane);
-
-/*		    
-		add(new Label("Rezepte kommen hier hin"));
-		
-		Zutat milch = new Zutat();
-		milch.setName("Milch");
-		milch.setEinheit("liter");
-		milch.setEnergiemenge(2000);
-		zutatDAO.create(milch);
-		
-		Zutat kornflakes = new Zutat();
-		kornflakes.setName("Kornfalkes");
-		kornflakes.setEinheit("Gramm");
-		kornflakes.setEnergiemenge(5000);
-		zutatDAO.create(kornflakes);
-
-		Rezept r = new Rezept();		
-		r.addZutat(milch, 1);
-		r.addZutat(kornflakes, 2);
-		r.setName("Fruestueck fuer Champignons");
-		r.setSchwierigkeit(1);
-		r.setZeit(1);
-		r.setZubereitung("Milch und Kornflakes in Schuessel geben");
-		
-		rezeptDAO.create(r);
-*/
 	}
 
 	protected void resetComponents()
