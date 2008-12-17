@@ -41,7 +41,10 @@ public class ZutatEditorWindow extends WindowPane implements ActionListener{
 	// Private Stuff
 	private ZutatDAO zutatDAO = null;
 	private Zutat zutat = null;
-	private Grid propertiesGrid;
+	private Grid propertiesGrid = new Grid();
+	private TextField einheitTextField = new TextField();
+	private TextField energieMengeTextField = new TextField(); // Textfield, damit man die Formularvalidierung testen kann
+	
 
 	public ZutatEditorWindow(Zutat zutat, ZutatDAO zutatDao) {
 		this.zutatDAO = zutatDao;
@@ -102,8 +105,13 @@ public class ZutatEditorWindow extends WindowPane implements ActionListener{
 	        deletebutton.addActionListener(this);
 	        propertiesGrid.add(deletebutton);
         }
-        // ---- Rezeptspezifische dinge
+        // ---- Zutatspezifische dinge
+        propertiesGrid.add(new Label("Einheit :"));
+        propertiesGrid.add(einheitTextField);
 
+        propertiesGrid.add(new Label("Energiemenge (kcal) :"));
+        propertiesGrid.add(energieMengeTextField);
+        
         cp.add(propertiesGrid);
 		return cp;
 	}
@@ -113,13 +121,17 @@ public class ZutatEditorWindow extends WindowPane implements ActionListener{
 	private void refreshGUIValues()
 	{
 		zutatDAO.refresh(zutat);
-
+		einheitTextField.setText(zutat.getEinheit());
+		energieMengeTextField.setText(String.valueOf(zutat.getEnergiemenge()));
 	}
 
 	
 	@Override
 	public void actionPerformed(ActionEvent actionevent) {
-
+		if(actionevent.getActionCommand().equalsIgnoreCase("save"))
+		{
+			
+		}
 	}
 	
 	
