@@ -41,9 +41,6 @@ public class LoginScreen extends Echo2UserInterface
 	private static final int NAVMENU_HEIGHT = 24;
 	private static final int SPACER_HEIGHT = 500;
 
-	// ========== INJECTED MEMBERS ==========
-	private Messages messages;
-
 	// ========== PRIVATE MEMBERS ==========
 	private ContentPane screenContainer = new ContentPane();
 	private Component mainMenuContainer;
@@ -219,17 +216,5 @@ public class LoginScreen extends Echo2UserInterface
 		SplitPaneLayoutData layout = new SplitPaneLayoutData();
 		layout.setOverflow(SplitPaneLayoutData.OVERFLOW_HIDDEN);
 		component.setLayoutData(layout);
-	}
-
-	// ========== GETTERS AND SETTERS ==========
-
-	public Messages getMessages()
-	{
-		return messages;
-	}
-
-	public void setMessages(Messages messages)
-	{
-		this.messages = messages;
 	}
 }
