@@ -96,7 +96,7 @@
 
 	<bean id="minimalDisconnectHandler"	class="org.stenerud.hse.base.data.DerbyDisconnectHandler"/>
 		
-	<bean id="minimalMessageSource"
+	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename">
 			<value>Messages</value> <!-- Messages.properties at the top of the classpath -->
@@ -151,8 +151,7 @@
 		</property>
 	</bean>
 	
-	
-	<!-- Zutaten Screen -->
+	<!-- Zutaten Auswahl Screen -->
 	<bean id="zutatScreen" class="fhj.swd05.hutteg.rezeptdb.zutat.ZutatScreen"
 		singleton="false">
 		<property name="messages">
@@ -160,6 +159,17 @@
 		</property>
 		<property name="zutatDAO">
 			<ref bean="ZutatDAO" />
+		</property>
+		
+		<property name="zutatEditor">
+			<ref bean="zutatEditRequestor" />
+		</property>
+	</bean>	
+	<!-- Zutaten Bearbeitungsrequestor -->
+	<bean id="zutatEditRequestor" class="fhj.swd05.hutteg.rezeptdb.zutat.ZutatEditRequestor"
+		singleton="false">
+		<property name="messages">
+			<ref bean="messages" />
 		</property>
 	</bean>	
 	
