@@ -68,82 +68,103 @@ public class WidgetScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 		Zutat brot = new Zutat();
 		brot.setName("Brot");
 		brot.setEinheit("Stk");
-
+		brot.setEnergiemenge(50);
+		
 		Zutat butter = new Zutat();
 		butter.setName("Butter");
 		butter.setEinheit("g");
+		butter.setEnergiemenge(20);
 		
 		Zutat salz = new Zutat();
 		salz.setName("Salz");
 		salz.setEinheit("brise");
+		salz.setEnergiemenge(2);
 		
 		Zutat pfeffer = new Zutat();
 		pfeffer.setName("Pfeffer");
 		pfeffer.setEinheit("brise");
+		pfeffer.setEnergiemenge(3);
 		
 		Zutat oregano = new Zutat();
 		oregano.setName("Oregano");
 		oregano.setEinheit("brise");
+		oregano.setEnergiemenge(5);
 		
 		Zutat tabasco = new Zutat();
 		tabasco.setName("Tabasco");
 		tabasco.setEinheit("schuss");
+		tabasco.setEnergiemenge(13);
 		
 		Zutat spagheti = new Zutat();
 		spagheti.setName("Spaghetti");
 		spagheti.setEinheit("g");
+		spagheti.setEnergiemenge(15);
 		
 		Zutat milch = new Zutat();
 		milch.setName("Milch");
 		milch.setEinheit("ml");
+		milch.setEnergiemenge(5);
 		
 		Zutat kornflakes = new Zutat();
 		kornflakes.setName("Kornfalkes");
 		kornflakes.setEinheit("100 g");
+		kornflakes.setEnergiemenge(300);
 		
 		Zutat hackfleisch = new Zutat();
 		hackfleisch.setName("Hackfleisch");
 		hackfleisch.setEinheit("g");
+		hackfleisch.setEnergiemenge(30);
 		
 		Zutat paprika = new Zutat();
 		paprika.setName("Paprika");
 		paprika.setEinheit("stk");
+		paprika.setEnergiemenge(1);
 		
 		Zutat zwiebeln = new Zutat();
 		zwiebeln.setName("Zwiebeln");
 		zwiebeln.setEinheit("stk");
+		zwiebeln.setEnergiemenge(120);
 		
 		Zutat tomaten = new Zutat();
 		tomaten.setName("Tomaten");
 		tomaten.setEinheit("stk");
-				
+		tomaten.setEnergiemenge(40);
+		
 		Zutat zucker = new Zutat();
 		zucker.setName("Zucker");
 		zucker.setEinheit("gramm");
+		zucker.setEnergiemenge(18);
 		
 		Zutat ei = new Zutat();
 		ei.setName("Ei");
 		ei.setEinheit("stk");
+		ei.setEnergiemenge(75);
 		
 		Zutat wasser = new Zutat();
 		wasser.setName("Wasser");
 		wasser.setEinheit("ml");
+		wasser.setEnergiemenge(0);
 		
 		Zutat schweinsschnitzel = new Zutat();
 		schweinsschnitzel.setName("Schweinsschnitzel");
-		schweinsschnitzel.setEinheit("ml");		
+		schweinsschnitzel.setEinheit("stk");
+		schweinsschnitzel.setEnergiemenge(350);
 		
 		Zutat semmelbroesel = new Zutat();
 		semmelbroesel.setName("Semmelbroesel");
-		semmelbroesel.setEinheit("ml");	
+		semmelbroesel.setEinheit("dag");	
+		semmelbroesel.setEnergiemenge(78);
 		
 		Zutat oel = new Zutat();
 		oel.setName("Oel");
 		oel.setEinheit("ml");			
-
+		oel.setEnergiemenge(113);
+		
 		Zutat mehl = new Zutat();
 		mehl.setName("mehl");
-		mehl.setEinheit("g");		
+		mehl.setEinheit("g");
+		mehl.setEnergiemenge(43);
+		
 		// So, jetzt haben wir genug Zutaten erzeugt, wir pflegen Sie in die DB ein
 			
 		zdao.create(brot);

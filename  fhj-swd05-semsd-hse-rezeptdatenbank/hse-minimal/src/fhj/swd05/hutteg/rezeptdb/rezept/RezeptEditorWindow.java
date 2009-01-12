@@ -20,6 +20,7 @@ import nextapp.echo2.app.WindowPane;
 import nextapp.echo2.app.event.ActionEvent;
 import nextapp.echo2.app.event.ActionListener;
 import nextapp.echo2.app.list.DefaultListModel;
+import nextapp.echo2.webcontainer.command.BrowserOpenWindowCommand;
 
 
 import org.stenerud.hse.base.ui.echo2.Theme;
@@ -48,6 +49,7 @@ public class RezeptEditorWindow extends WindowPane implements ActionListener{
 	private TextArea taZubereitung = new TextArea();
     Grid propertiesGrid = new Grid();
     Grid zutatenGrid = new Grid();
+    private Label gesamtenergieLabel = new Label();
     
 	private ComboBox cbZutaten = new ComboBox();
 	private Button zutatenAddButton = new Button();
@@ -101,7 +103,7 @@ public class RezeptEditorWindow extends WindowPane implements ActionListener{
 		
 		// Grid mit den aktuellen Zutaten erzeugen
         zutatenGrid.setOrientation(Grid.ORIENTATION_HORIZONTAL);
-        zutatenGrid.setSize(3); // Es gibt 3 Spalten
+        zutatenGrid.setSize(4); // Es gibt 4 Spalten
         zutatenGrid.setInsets(new Insets(10));
 		
         rezeptDAO.refresh(rezept); // Sonst funktioniert lazyLoading nicht !!
@@ -176,6 +178,9 @@ public class RezeptEditorWindow extends WindowPane implements ActionListener{
 		
 		// Danach ein Label mit dem Namen der Zutat
 		zutatenGrid.add(new Label(String.valueOf(m)));
+		
+		// Und zum Schluss die Einheit der Zutat
+		zutatenGrid.add(new Label(z.getEinheit()));
 	}
 
 	
@@ -237,9 +242,18 @@ public class RezeptEditorWindow extends WindowPane implements ActionListener{
         slZeit.setWidth(new Extent(90,Extent.PERCENT));
         propertiesGrid.add(slZeit);
         
+        propertiesGrid.add(new Label("Gesamtenergie : "));  
+        propertiesGrid.add(gesamtenergieLabel);
+        
+        Button searchButton = new Button("Suche bei Google");
+        searchButton.setActionCommand("search");
+        searchButton.addActionListener(this);
+        propertiesGrid.add(searchButton);
+        
         cp.add(propertiesGrid);
 		return cp;
 	}
+
 	/**
 	 * Updatet die GUI mit den Werten aus dem Rezept
 	 */
@@ -249,6 +263,8 @@ public class RezeptEditorWindow extends WindowPane implements ActionListener{
 		this.sgSchwierigkeit.setSchwierigkgeit(rezept.getSchwierigkeit());
 		this.slZeit.setValue(rezept.getZeit());
 		this.taZubereitung.setText(rezept.getZubereitung());
+		this.gesamtenergieLabel.setText(String.valueOf(rezept.getEnergie()));
+	
 	}
 	/**
 	 * Holt aus der GUI die aktuellen Werte und schreibt Sie ins Rezept Objekt
@@ -279,6 +295,7 @@ public class RezeptEditorWindow extends WindowPane implements ActionListener{
 				if(g.getComponent(i).equals(eventButton))
 				{
 					// Jep, also loeschen wir ihn weg
+					g.remove(i+3); // Einheit
 					g.remove(i+2); // Mengenlabel
 					g.remove(i+1); // Bezeichnung
 					g.remove(i);   // Button selbst
@@ -337,6 +354,13 @@ public class RezeptEditorWindow extends WindowPane implements ActionListener{
 		{
 			rezeptDAO.delete(rezept);
 			userClose();
+		}
+		else if(actionevent.getActionCommand().equalsIgnoreCase("search"))
+		{
+			// WIr möchten etwas bei Google nachschlagen
+			this.getApplicationInstance().enqueueCommand(
+					new BrowserOpenWindowCommand("http://www.google.com/search?q=" + rezept.getName(), 
+							"google", "width=640,height=480"));
 		}
 	}
 	
