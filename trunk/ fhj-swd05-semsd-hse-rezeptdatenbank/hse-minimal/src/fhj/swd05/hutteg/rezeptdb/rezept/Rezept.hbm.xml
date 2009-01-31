@@ -4,12 +4,12 @@
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <class name="fhj.swd05.hutteg.rezeptdb.rezept.Rezept" table="Rezepte">
-    <id column="rezeptId" name="id" type="int" unsaved-value="-1">
+    <id column="rezeptId" name="id" type="integer" unsaved-value="-1">
       <generator class="native"/>
     </id>
     <property column="name" length="255" name="name" not-null="true" type="string"/>
 	<property column="zeit" name="zeit" not-null="true" type="integer"/>
-    <property column="schwierigkeit" name="schwierigkeit" not-null="false" type="integer"/>
+    <property column="schwierigkeit" name="schwierigkeit" not-null="true" type="integer"/>
     <property column="zubereitung" name="zubereitung" length="4096" not-null="true" type="string"/>
 	<map name="zutaten" table="rezept_zutaten" lazy="true">
        <key column="id"/>
