@@ -62,10 +62,6 @@ public class ZutatEditRequestor extends TrueFalseRequestor{
 		rules.addIntegerRule("zutat.energiemenge", energieMengeTextField);
 		
 	}
-	protected void resetComponents()
-	{
-		// Nothing to do
-	}
 	
 	// Kann ueberschrieben werden
 	protected boolean handleAction(ActionEvent ev)

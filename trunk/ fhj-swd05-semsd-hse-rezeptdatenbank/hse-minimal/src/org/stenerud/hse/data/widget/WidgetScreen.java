@@ -47,9 +47,22 @@ public class WidgetScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 	@SuppressWarnings("unchecked")
 	protected void initComponents()
 	{
+		try
+		{
+			initDatabase();
+			add(new Label("Testdaten wurden erfolgreich erzeugt."));
+		}
+		catch(Exception e)
+		{
+			Label errLabel = new Label();
+			errLabel.setText(e.getMessage());
+			add(errLabel);
+		}
 		
-		add(new Label("Testdaten werden erzeugt."));
-		
+
+	}
+
+	private void initDatabase() {
 		// Alten Mist aus der DB loeschen
 		
 		List rezepte = rdao.getRezepte();
@@ -234,8 +247,6 @@ public class WidgetScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 		rdao.create(nudelnmitei);
 		rdao.create(ffc);
 		rdao.create(wienerschnitzel);
-		
-
 	}
 
 	protected void resetComponents()
