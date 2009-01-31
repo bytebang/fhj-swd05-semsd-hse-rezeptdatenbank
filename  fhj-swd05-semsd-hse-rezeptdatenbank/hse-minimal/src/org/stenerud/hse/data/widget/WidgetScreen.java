@@ -44,7 +44,6 @@ public class WidgetScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 		return messages.get("screen.widgets");
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void initComponents()
 	{
 		try
@@ -54,14 +53,13 @@ public class WidgetScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 		}
 		catch(Exception e)
 		{
-			Label errLabel = new Label();
-			errLabel.setText(e.getMessage());
-			add(errLabel);
+			add(new Label(e.getMessage()));
 		}
 		
 
 	}
 
+	@SuppressWarnings("unchecked")
 	private void initDatabase() {
 		// Alten Mist aus der DB loeschen
 		
@@ -243,6 +241,7 @@ public class WidgetScreen extends org.stenerud.hse.base.ui.echo2.screen.PaneScre
 		wienerschnitzel.addZutat(oel, 133);
 		wienerschnitzel.addZutat(salz, 1);
 
+		
 		rdao.create(butterbrot);
 		rdao.create(nudelnmitei);
 		rdao.create(ffc);

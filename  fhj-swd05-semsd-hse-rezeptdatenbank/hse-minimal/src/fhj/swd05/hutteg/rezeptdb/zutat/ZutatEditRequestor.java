@@ -2,11 +2,7 @@ package fhj.swd05.hutteg.rezeptdb.zutat;
 
 
 import nextapp.echo2.app.Column;
-import nextapp.echo2.app.ContentPane;
 import nextapp.echo2.app.Extent;
-import nextapp.echo2.app.Grid;
-import nextapp.echo2.app.Insets;
-import nextapp.echo2.app.Label;
 import nextapp.echo2.app.TextField;
 import nextapp.echo2.app.event.ActionEvent;
 
@@ -16,9 +12,6 @@ import org.stenerud.hse.base.ui.echo2.tool.TwoColumnDataHelper;
 import org.stenerud.hse.base.ui.echo2.validation.ValidationRuleMaker;
 import org.stenerud.hse.base.ui.validation.ValidationException;
 import org.stenerud.hse.base.ui.validation.Validator;
-
-import echopointng.TabbedPane;
-import echopointng.tabbedpane.DefaultTabModel;
 
 public class ZutatEditRequestor extends TrueFalseRequestor{
 	
