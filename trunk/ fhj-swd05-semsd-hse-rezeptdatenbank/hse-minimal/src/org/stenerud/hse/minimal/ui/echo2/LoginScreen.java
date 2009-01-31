@@ -3,14 +3,6 @@ package org.stenerud.hse.minimal.ui.echo2;
 import java.util.Iterator;
 import java.util.List;
 
-import org.stenerud.hse.base.ui.Messages;
-import org.stenerud.hse.base.ui.echo2.Echo2UserInterface;
-import org.stenerud.hse.base.ui.echo2.component.MainMenu;
-import org.stenerud.hse.base.ui.echo2.screen.BaseDescription;
-import org.stenerud.hse.base.ui.echo2.screen.CategoryDescription;
-import org.stenerud.hse.base.ui.echo2.screen.ScreenDescription;
-
-import echopointng.Menu;
 import nextapp.echo2.app.Column;
 import nextapp.echo2.app.Component;
 import nextapp.echo2.app.ContentPane;
@@ -20,6 +12,14 @@ import nextapp.echo2.app.SplitPane;
 import nextapp.echo2.app.event.ActionEvent;
 import nextapp.echo2.app.event.ActionListener;
 import nextapp.echo2.app.layout.SplitPaneLayoutData;
+
+import org.stenerud.hse.base.ui.echo2.Echo2UserInterface;
+import org.stenerud.hse.base.ui.echo2.component.MainMenu;
+import org.stenerud.hse.base.ui.echo2.screen.BaseDescription;
+import org.stenerud.hse.base.ui.echo2.screen.CategoryDescription;
+import org.stenerud.hse.base.ui.echo2.screen.ScreenDescription;
+
+import echopointng.Menu;
 
 /**
  * A minimal HSE user interface. <br>

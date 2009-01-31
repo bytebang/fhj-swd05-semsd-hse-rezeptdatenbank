@@ -1,8 +1,6 @@
 package fhj.swd05.hutteg.rezeptdb.zutat;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 import nextapp.echo2.app.Button;
@@ -14,7 +12,6 @@ import nextapp.echo2.app.event.ActionListener;
 
 import org.stenerud.hse.base.ui.echo2.BaseApplicationHelper;
 import org.stenerud.hse.base.ui.echo2.screen.PaneScreen;
-import org.stenerud.hse.base.ui.echo2.screen.ScreenManager;
 
 import echopointng.TabbedPane;
 import echopointng.tabbedpane.DefaultTabModel;
@@ -141,8 +138,7 @@ public class ZutatScreen extends PaneScreen implements ActionListener
 	 */
 	@Override
 	public void actionPerformed(ActionEvent actionevent) {
-		// TODO Auto-generated method stub
-		
+
 		// Nur JA Events interessieren uns hier
 		if ( !actionevent.getActionCommand().equals(ZutatEditRequestor.COMMAND_FALSE) )
 		{
